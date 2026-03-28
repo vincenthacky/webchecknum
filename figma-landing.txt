@@ -1,0 +1,35 @@
+est ce bon
+
+{
+  "mcpServers": {
+    "figma": {
+      "type": "sse",
+      "url": "https://mcp.figma.com/mcp",
+      "headers": {
+        "X-Figma-Token": "figd_pLnzNAPyyOgJ7NipMk1c3wvMDqoeuaBFnRw43-Hn"
+      }
+    }
+  }
+}
+```
+
+
+Implémente la page Discord1 depuis ce fichier Figma : - File key : XNXcXqyZYo4bP6fUsqHslm - Node ID : 2419-105
+
+
+```json
+
+Implémente la page Discord1 depuis ce fichier Figma :
+- File key : XNXcXqyZYo4bP6fUsqHslm
+- Node ID : 2419-105
+
+C'est la homepage de Discord. Elle contient :
+- Une navbar avec logo, liens (Download Nitro, Discover, Safety, Support, Blog, Careers) et bouton Login
+- Un hero avec le texte "Imagine a place..." et le sous-titre
+- Deux boutons CTA : "Download for Windows" et "Open Discord in your browser"
+- Un background illustré avec des personnages
+
+Utilise React + Tailwind CSS. Récupère les styles exacts via le MCP Figma avec le node-id 2419-105.
+```
+
+Tu veux que je génère directement le code HTML/React de cette page depuis le design Figma ?
