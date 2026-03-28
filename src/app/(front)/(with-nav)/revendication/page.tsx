@@ -1,11 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/constants";
+import { GavelIcon } from "@/components/ui/Icons";
 
 export default function RevendicationPage() {
+  useAuth(true);
+
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10 md:py-16">
       <div className="text-center mb-10">
-        <div className="text-5xl mb-4">⚖️</div>
+        <div className="flex justify-center mb-4">
+          <GavelIcon size={52} color="#F97316" />
+        </div>
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">
           Vous pensez être injustement signalé ?
         </h1>
@@ -58,7 +66,10 @@ export default function RevendicationPage() {
             href="tel:+2250700000000"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition-colors"
           >
-            📞 Appeler
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            Appeler
           </a>
         </div>
       </div>

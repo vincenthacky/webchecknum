@@ -5,7 +5,7 @@ export default function WithNavLayout({ children }: { children: React.ReactNode 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <AppNavbar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pt-0">{children}</main>
       <AppFooter />
     </div>
   );

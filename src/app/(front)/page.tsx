@@ -2,6 +2,7 @@ import { Noto_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { ROUTES } from "@/constants";
+import { AppNavbar } from "@/components/layout/front/AppNavbar";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -67,6 +68,8 @@ export default function HomePage() {
   return (
     <div className={notoSans.className} style={{ color: "#111827" }}>
 
+      <AppNavbar heroMode />
+
       {/* ════════════════════════════════════════════════════
           S1 — HERO
           ════════════════════════════════════════════════════ */}
@@ -87,32 +90,8 @@ export default function HomePage() {
           <Image src="/images/landing/hero-left.png" alt="" fill sizes="430px" style={{ objectFit: "contain", objectPosition: "bottom right" }} unoptimized />
         </div>
 
-        {/* navbar */}
-        <nav className="relative z-20 mx-auto flex items-center justify-between px-8" style={{ maxWidth: 1180, height: 80 }}>
-          {/* Logo NumCheck */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ position: "relative", width: 96, height: 64 }}>
-              <Image src="/images/logo.png" alt="NumCheck" fill sizes="96px" style={{ objectFit: "contain" }} unoptimized />
-            </div>
-            <span style={{ fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: "-0.02em" }}>
-              NumCheck
-            </span>
-          </div>
-
-          {/* Nav links commentés — décommenter quand les pages seront prêtes */}
-          {/* <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((l) => (
-              <a key={l} href="#" style={{ color: "#fff", fontSize: 16, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>{l}</a>
-            ))}
-          </div> */}
-
-          <Link href={ROUTES.front.connexion} style={{ backgroundColor: "#fff", color: "#111827", fontSize: 13, fontWeight: 600, padding: "7px 20px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}>
-            Se connecter
-          </Link>
-        </nav>
-
-        {/* hero content */}
-        <div className="relative z-10 flex flex-col items-center" style={{ paddingTop: 48 }}>
+        {/* hero content — paddingTop = navbar height + spacing */}
+        <div className="relative z-10 flex flex-col items-center" style={{ paddingTop: 110 }}>
           <div style={{ maxWidth: 820, width: "100%", textAlign: "center", padding: "0 16px" }}>
             <h1 style={{ fontFamily: "inherit", fontSize: 56, fontWeight: 800, color: "#fff", lineHeight: 1.1, textTransform: "uppercase", margin: "0 0 24px 0" }}>
               Votre bouclier contre les arnaques téléphoniques.

@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { signalementService } from "@/features/signalements/services/signalement.service";
 import type { MonSignalement } from "@/types/models.types";
 import { ROUTES } from "@/constants";
+import { InboxEmptyIcon } from "@/components/ui/Icons";
 
 function StatutBadge({ statut }: { statut: MonSignalement["statut"] }) {
   const config = {
@@ -57,7 +58,7 @@ export default function MesSignalementsPage() {
 
       {!loading && !error && signalements.length === 0 && (
         <div className="text-center py-16">
-          <div className="text-5xl mb-4">📭</div>
+          <div className="mb-4"><InboxEmptyIcon size={52} color="#d1d5db" /></div>
           <p className="text-gray-500 text-sm">Vous n&apos;avez encore fait aucun signalement.</p>
           <Link
             href={ROUTES.front.signaler}

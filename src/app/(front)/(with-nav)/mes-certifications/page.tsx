@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { certificationService } from "@/features/certifications/services/certification.service";
 import type { Soumission } from "@/types/models.types";
 import { ROUTES } from "@/constants";
+import { BadgeIcon } from "@/components/ui/Icons";
 
 function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   const config = {
@@ -51,7 +52,7 @@ export default function MesCertificationsPage() {
 
       {!loading && soumissions.length === 0 && (
         <div className="text-center py-16">
-          <div className="text-5xl mb-4">🏅</div>
+          <div className="mb-4"><BadgeIcon size={52} color="#d1d5db" /></div>
           <p className="text-gray-500 text-sm">Aucune demande de certification pour l&apos;instant.</p>
           <Link
             href={ROUTES.front.certifier}

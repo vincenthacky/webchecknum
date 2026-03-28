@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { certificationService } from "@/features/certifications/services/certification.service";
 import type { Soumission } from "@/types/models.types";
+import { VerifiedIcon, InboxEmptyIcon } from "@/components/ui/Icons";
 
 function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   if (statut === "verifie") {
@@ -65,7 +66,7 @@ export default function CertifierPage() {
       {/* Explication */}
       <div className="bg-green-50 border border-green-100 rounded-2xl p-5 mb-8">
         <div className="flex items-start gap-3">
-          <div className="text-2xl">✅</div>
+          <div className="flex-shrink-0 mt-0.5"><VerifiedIcon size={24} color="#16a34a" /></div>
           <div>
             <p className="font-semibold text-green-800 mb-1">Le badge Certifié NumCheck</p>
             <p className="text-sm text-green-700">
@@ -110,7 +111,7 @@ export default function CertifierPage() {
           </div>
         ) : soumissions.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
-            <div className="text-4xl mb-3">📋</div>
+            <div className="mb-3"><InboxEmptyIcon size={44} color="#d1d5db" /></div>
             <p className="text-sm">Aucune certification soumise pour le moment.</p>
           </div>
         ) : (

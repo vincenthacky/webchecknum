@@ -6,19 +6,24 @@ import Link from "next/link";
 import { numeroService } from "@/features/numeros/services/numero.service";
 import type { NumeroResult } from "@/types/models.types";
 import { ROUTES } from "@/constants";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  SearchIcon, FlagIcon, ShieldIcon, CheckCircleIcon,
+  WarningIcon, ClockIcon, HelpCircleIcon, ReportIcon,
+} from "@/components/ui/Icons";
 
 function EtatBadge({ etat }: { etat: NumeroResult["etat"] }) {
   const config = {
-    inconnu: { bg: "bg-gray-100", text: "text-gray-600", border: "border-gray-200", label: "Aucun signalement", icon: "❓" },
-    arnaqueur_verifie: { bg: "bg-red-50", text: "text-red-700", border: "border-red-200", label: "ARNAQUEUR CONFIRMÉ", icon: "🚨" },
-    arnaqueur_en_attente: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200", label: "Signalements en cours", icon: "⚠️" },
-    certifie_verifie: { bg: "bg-green-50", text: "text-green-700", border: "border-green-200", label: "CERTIFIÉ NumCheck ✓", icon: "✅" },
-    certifie_en_attente: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200", label: "Certification en cours", icon: "🕐" },
+    inconnu: { bg: "bg-gray-100", text: "text-gray-600", border: "border-gray-200", label: "Aucun signalement", Icon: HelpCircleIcon },
+    arnaqueur_verifie: { bg: "bg-red-50", text: "text-red-700", border: "border-red-200", label: "ARNAQUEUR CONFIRMÉ", Icon: ReportIcon },
+    arnaqueur_en_attente: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200", label: "Signalements en cours", Icon: WarningIcon },
+    certifie_verifie: { bg: "bg-green-50", text: "text-green-700", border: "border-green-200", label: "CERTIFIÉ NumCheck", Icon: CheckCircleIcon },
+    certifie_en_attente: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200", label: "Certification en cours", Icon: ClockIcon },
   };
   const c = config[etat];
   return (
     <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold border ${c.bg} ${c.text} ${c.border}`}>
-      {c.icon} {c.label}
+      <c.Icon size={14} /> {c.label}
     </span>
   );
 }
@@ -76,7 +81,7 @@ function ResultCard({ result, searchedNum }: { result: NumeroResult; searchedNum
               href={`${ROUTES.front.signaler}?num=${encodeURIComponent(searchedNum)}`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 transition-colors"
             >
-              🚨 Signaler ce numéro
+              <FlagIcon size={16} color="#fff" /> Signaler ce numéro
             </Link>
           </div>
         )}
@@ -88,6 +93,7 @@ function ResultCard({ result, searchedNum }: { result: NumeroResult; searchedNum
 function VerifierContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  useAuth(true);
   const [numero, setNumero] = useState(searchParams.get("num") ?? "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<NumeroResult | null>(null);
@@ -178,12 +184,12 @@ function VerifierContent() {
       {!result && !loading && (
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           {[
-            { icon: "🔍", title: "Recherche rapide", desc: "Résultat en quelques secondes" },
-            { icon: "🛡️", title: "Données fiables", desc: "Vérifiées par la communauté" },
-            { icon: "🆓", title: "Gratuit", desc: "Toujours sans frais" },
+            { Icon: SearchIcon, iconColor: "#F97316", title: "Recherche rapide", desc: "Résultat en quelques secondes" },
+            { Icon: ShieldIcon, iconColor: "#22C55E", title: "Données fiables", desc: "Vérifiées par la communauté" },
+            { Icon: CheckCircleIcon, iconColor: "#3B82F6", title: "Gratuit", desc: "Toujours sans frais" },
           ].map((item) => (
             <div key={item.title} className="bg-white rounded-xl border border-gray-100 p-4">
-              <div className="text-2xl mb-2">{item.icon}</div>
+              <div className="mb-2"><item.Icon size={28} color={item.iconColor} /></div>
               <p className="text-sm font-semibold text-gray-800">{item.title}</p>
               <p className="text-xs text-gray-400 mt-0.5">{item.desc}</p>
             </div>

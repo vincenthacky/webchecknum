@@ -1,8 +1,12 @@
+import { SmartphoneIcon, AndroidIcon, AppleIcon, BellIcon } from "@/components/ui/Icons";
+
 export default function TelechargementPage() {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10 md:py-16">
       <div className="text-center mb-10">
-        <div className="text-5xl mb-4">📱</div>
+        <div className="flex justify-center mb-4">
+          <SmartphoneIcon size={52} color="#F97316" />
+        </div>
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-2">
           Télécharger l&apos;application
         </h1>
@@ -15,7 +19,8 @@ export default function TelechargementPage() {
         {[
           {
             platform: "Android",
-            icon: "🤖",
+            Icon: AndroidIcon,
+            iconColor: "#22C55E",
             desc: "Compatible Android 7.0 et supérieur.",
             store: "Google Play",
             color: "bg-green-50 border-green-100",
@@ -23,7 +28,8 @@ export default function TelechargementPage() {
           },
           {
             platform: "iOS",
-            icon: "🍎",
+            Icon: AppleIcon,
+            iconColor: "#3B82F6",
             desc: "Compatible iPhone iOS 14 et supérieur.",
             store: "App Store",
             color: "bg-blue-50 border-blue-100",
@@ -31,7 +37,9 @@ export default function TelechargementPage() {
           },
         ].map((item) => (
           <div key={item.platform} className={`rounded-2xl border ${item.color} p-6 text-center`}>
-            <div className="text-4xl mb-3">{item.icon}</div>
+            <div className="flex justify-center mb-3">
+              <item.Icon size={40} color={item.iconColor} />
+            </div>
             <h2 className="text-lg font-bold text-gray-900 mb-2">{item.platform}</h2>
             <p className="text-sm text-gray-500 mb-5">{item.desc}</p>
             <button
@@ -46,6 +54,9 @@ export default function TelechargementPage() {
 
       {/* Notif */}
       <div className="bg-orange-50 border border-orange-100 rounded-2xl p-6 text-center">
+        <div className="flex justify-center mb-3">
+          <BellIcon size={28} color="#F97316" />
+        </div>
         <p className="font-semibold text-gray-900 mb-2">Être notifié dès la sortie</p>
         <p className="text-sm text-gray-500 mb-4">Laissez votre numéro et nous vous prévenons à la sortie.</p>
         <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">

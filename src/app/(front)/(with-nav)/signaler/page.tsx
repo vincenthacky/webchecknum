@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { signalementService } from "@/features/signalements/services/signalement.service";
 import type { Categorie, Canal } from "@/types/models.types";
 import { ROUTES } from "@/constants";
+import { CheckCircleIcon, FlagIcon } from "@/components/ui/Icons";
 
 function SignalerContent() {
   const searchParams = useSearchParams();
@@ -70,7 +71,7 @@ function SignalerContent() {
   if (success) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
-        <div className="text-5xl mb-4">✅</div>
+        <div className="mb-4"><CheckCircleIcon size={52} color="#22C55E" /></div>
         <h2 className="text-xl font-bold text-gray-900 mb-2">Signalement envoyé !</h2>
         <p className="text-gray-500 text-sm">Merci. Votre signalement aide la communauté.</p>
       </div>
@@ -178,7 +179,11 @@ function SignalerContent() {
             disabled={loading || loadingConfig}
             className="w-full min-h-[52px] py-3 rounded-xl bg-orange-500 text-white font-semibold text-base hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {loading ? "Envoi en cours…" : "🚨 Envoyer le signalement"}
+            {loading ? "Envoi en cours…" : (
+            <span className="flex items-center justify-center gap-2">
+              <FlagIcon size={16} color="#fff" /> Envoyer le signalement
+            </span>
+          )}
           </button>
         </form>
       </div>

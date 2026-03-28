@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { profilService } from "@/features/profil/services/profil.service";
 import { ROUTES } from "@/constants";
+import { FlagIcon, VerifiedIcon, LogoutIcon } from "@/components/ui/Icons";
 
 export default function ProfilPage() {
   const { user, isAuthenticated, logout } = useAuth(true);
@@ -68,14 +69,14 @@ export default function ProfilPage() {
             href={ROUTES.front.mesSignalements}
             className="flex flex-col items-center py-4 rounded-xl bg-orange-50 border border-orange-100 hover:bg-orange-100 transition-colors text-center"
           >
-            <span className="text-2xl mb-1">🚨</span>
+            <FlagIcon size={24} color="#c2410c" />
             <span className="text-xs font-semibold text-orange-700">Mes signalements</span>
           </Link>
           <Link
             href={ROUTES.front.mesCertifications}
             className="flex flex-col items-center py-4 rounded-xl bg-green-50 border border-green-100 hover:bg-green-100 transition-colors text-center"
           >
-            <span className="text-2xl mb-1">✅</span>
+            <VerifiedIcon size={24} color="#15803d" />
             <span className="text-xs font-semibold text-green-700">Mes certifications</span>
           </Link>
         </div>
@@ -141,9 +142,9 @@ export default function ProfilPage() {
       {/* Déconnexion */}
       <button
         onClick={logout}
-        className="w-full min-h-[48px] py-3 rounded-xl border-2 border-red-200 text-red-500 font-semibold text-sm hover:bg-red-50 transition-colors"
+        className="w-full min-h-[48px] py-3 rounded-xl border-2 border-red-200 text-red-500 font-semibold text-sm hover:bg-red-50 transition-colors flex items-center justify-center gap-2"
       >
-        🚪 Se déconnecter
+        <LogoutIcon size={18} /> Se déconnecter
       </button>
     </div>
   );
