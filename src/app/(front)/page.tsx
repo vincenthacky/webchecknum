@@ -1,5 +1,7 @@
 import { Noto_Sans } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
+import { ROUTES } from "@/constants";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -104,9 +106,9 @@ export default function HomePage() {
             ))}
           </div> */}
 
-          <a href="#" style={{ backgroundColor: "#fff", color: "#111827", fontSize: 13, fontWeight: 600, padding: "7px 20px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}>
+          <Link href={ROUTES.front.connexion} style={{ backgroundColor: "#fff", color: "#111827", fontSize: 13, fontWeight: 600, padding: "7px 20px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}>
             Se connecter
-          </a>
+          </Link>
         </nav>
 
         {/* hero content */}
@@ -119,14 +121,14 @@ export default function HomePage() {
               Vérifiez en 3 secondes si un numéro est signalé comme arnaqueur, signalez les escrocs, et certifiez votre commerce comme digne de confiance — en Côte d&apos;Ivoire.
             </p>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
-              <button style={{ backgroundColor: "#fff", color: "#111827", fontFamily: "inherit", fontSize: 18, fontWeight: 600, height: 56, padding: "0 28px", borderRadius: 999, border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, whiteSpace: "nowrap" }}>
+              <Link href={ROUTES.front.verifier} style={{ backgroundColor: "#fff", color: "#111827", fontFamily: "inherit", fontSize: 18, fontWeight: 600, height: 56, padding: "0 28px", borderRadius: 999, textDecoration: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, whiteSpace: "nowrap" }}>
                 <SearchIcon color="#F97316" />
                 Vérifier un numéro
-              </button>
-              <button style={{ backgroundColor: "#111827", color: "#fff", fontFamily: "inherit", fontSize: 18, fontWeight: 500, height: 56, padding: "0 28px", borderRadius: 999, border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, whiteSpace: "nowrap" }}>
+              </Link>
+              <Link href={ROUTES.front.telechargement} style={{ backgroundColor: "#111827", color: "#fff", fontFamily: "inherit", fontSize: 18, fontWeight: 500, height: 56, padding: "0 28px", borderRadius: 999, textDecoration: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, whiteSpace: "nowrap" }}>
                 <DownloadIcon color="#fff" />
                 Télécharger l&apos;app
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -235,10 +237,10 @@ export default function HomePage() {
           <h2 style={{ fontSize: 28, fontWeight: 700, margin: "0 0 32px 0", color: "#111827" }}>
             Prêt à naviguer en sécurité ?
           </h2>
-          <button style={{ backgroundColor: "#F97316", color: "#fff", fontFamily: "inherit", fontSize: 18, fontWeight: 600, height: 56, padding: "0 32px", borderRadius: 999, border: "none", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10 }}>
+          <Link href={ROUTES.front.verifier} style={{ backgroundColor: "#F97316", color: "#fff", fontFamily: "inherit", fontSize: 18, fontWeight: 600, height: 56, padding: "0 32px", borderRadius: 999, textDecoration: "none", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10 }}>
             <SearchIcon color="#fff" />
             Vérifier un numéro maintenant
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -324,9 +326,9 @@ export default function HomePage() {
               NumCheck
             </span>
           </div>
-          <a href="#" style={{ backgroundColor: "#F97316", color: "#fff", fontFamily: "inherit", fontSize: 14, fontWeight: 600, padding: "10px 24px", borderRadius: 999, textDecoration: "none" }}>
+          <Link href={ROUTES.front.verifier} style={{ backgroundColor: "#F97316", color: "#fff", fontFamily: "inherit", fontSize: 14, fontWeight: 600, padding: "10px 24px", borderRadius: 999, textDecoration: "none" }}>
             Vérifier un numéro
-          </a>
+          </Link>
         </div>
       </footer>
 

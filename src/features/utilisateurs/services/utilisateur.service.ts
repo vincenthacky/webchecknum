@@ -6,19 +6,19 @@ import type { CreateUserDto, UserFilters } from "../types";
 
 export const utilisateurService = {
   getAll: (filters?: UserFilters) =>
-    apiClient.get<PaginatedResponse<User>>(ENDPOINTS.utilisateurs.base, {
+    apiClient.get<PaginatedResponse<User>>(ENDPOINTS.admin.utilisateurs.base, {
       params: filters,
     }),
 
   getById: (id: string) =>
-    apiClient.get<ApiResponse<User>>(ENDPOINTS.utilisateurs.detail(id)),
+    apiClient.get<ApiResponse<User>>(ENDPOINTS.admin.utilisateurs.detail(id)),
 
   create: (data: CreateUserDto) =>
-    apiClient.post<ApiResponse<User>>(ENDPOINTS.utilisateurs.base, data),
+    apiClient.post<ApiResponse<User>>(ENDPOINTS.admin.utilisateurs.base, data),
 
   update: (id: string, data: Partial<CreateUserDto>) =>
-    apiClient.patch<ApiResponse<User>>(ENDPOINTS.utilisateurs.detail(id), data),
+    apiClient.patch<ApiResponse<User>>(ENDPOINTS.admin.utilisateurs.detail(id), data),
 
   delete: (id: string) =>
-    apiClient.delete<ApiResponse<void>>(ENDPOINTS.utilisateurs.detail(id)),
+    apiClient.delete<ApiResponse<void>>(ENDPOINTS.admin.utilisateurs.detail(id)),
 };

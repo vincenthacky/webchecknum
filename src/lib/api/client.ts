@@ -12,7 +12,7 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("numcheck_token");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -28,8 +28,8 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
-        localStorage.removeItem("access_token");
-        window.location.href = "/auth/login";
+        localStorage.removeItem("numcheck_token");
+        window.location.href = "/connexion";
       }
     }
     return Promise.reject(error);

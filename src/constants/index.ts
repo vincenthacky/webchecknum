@@ -3,12 +3,20 @@ export const APP_DESCRIPTION =
   "Application anti-arnaques téléphoniques en Côte d'Ivoire";
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+  process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.252.83:3003/api";
 
 export const ROUTES = {
   front: {
     home: "/",
     verifier: "/verifier",
+    signaler: "/signaler",
+    certifier: "/certifier",
+    mesSignalements: "/mes-signalements",
+    mesCertifications: "/mes-certifications",
+    profil: "/profil",
+    connexion: "/connexion",
+    inscription: "/inscription",
+    revendication: "/revendication",
     telechargement: "/telechargement",
   },
   back: {
