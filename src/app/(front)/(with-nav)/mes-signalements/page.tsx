@@ -7,6 +7,7 @@ import { signalementService } from "@/features/signalements/services/signalement
 import type { MonSignalement } from "@/types/models.types";
 import { ROUTES } from "@/constants";
 import { InboxEmptyIcon } from "@/components/ui/Icons";
+import { AuthLoading } from "@/components/shared/AuthGuard";
 
 function StatutBadge({ statut }: { statut: MonSignalement["statut"] }) {
   const config = {
@@ -21,7 +22,7 @@ function StatutBadge({ statut }: { statut: MonSignalement["statut"] }) {
 }
 
 export default function MesSignalementsPage() {
-  useAuth(true);
+  const { hydrated } = useAuth(true);
   const [signalements, setSignalements] = useState<MonSignalement[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -32,6 +33,8 @@ export default function MesSignalementsPage() {
       .catch(() => setError("Impossible de charger vos signalements."))
       .finally(() => setLoading(false));
   }, []);
+
+  if (!hydrated) return <AuthLoading />;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10 md:py-16">

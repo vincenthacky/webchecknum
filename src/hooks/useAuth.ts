@@ -8,13 +8,15 @@ import { ROUTES } from "@/constants";
 
 export function useAuth(requireAuth = false) {
   const router = useRouter();
-  const { user, isAuthenticated, setAuth, clearAuth } = useAuthStore();
+  const { user, isAuthenticated, _hasHydrated, setAuth, clearAuth } = useAuthStore();
 
   useEffect(() => {
+    // Attendre que Zustand ait fini de lire localStorage avant de rediriger
+    if (!_hasHydrated) return;
     if (requireAuth && !isAuthenticated) {
       router.replace(ROUTES.front.connexion);
     }
-  }, [requireAuth, isAuthenticated, router]);
+  }, [requireAuth, isAuthenticated, _hasHydrated, router]);
 
   const login = async (num: string, motdepasse: string) => {
     const data = await authService.login(num, motdepasse);
@@ -32,5 +34,5 @@ export function useAuth(requireAuth = false) {
     router.push(ROUTES.front.home);
   };
 
-  return { user, isAuthenticated, login, register, logout };
+  return { user, isAuthenticated, hydrated: _hasHydrated, login, register, logout };
 }

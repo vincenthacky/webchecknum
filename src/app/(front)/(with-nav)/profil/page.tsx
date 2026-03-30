@@ -6,15 +6,19 @@ import { useAuth } from "@/hooks/useAuth";
 import { profilService } from "@/features/profil/services/profil.service";
 import { ROUTES } from "@/constants";
 import { FlagIcon, VerifiedIcon, LogoutIcon } from "@/components/ui/Icons";
+import { AuthLoading } from "@/components/shared/AuthGuard";
 
 export default function ProfilPage() {
-  const { user, isAuthenticated, logout } = useAuth(true);
+  const { user, isAuthenticated, hydrated, logout } = useAuth(true);
   const [ancien, setAncien] = useState("");
   const [nouveau, setNouveau] = useState("");
   const [confirmer, setConfirmer] = useState("");
   const [mdpLoading, setMdpLoading] = useState(false);
   const [mdpSuccess, setMdpSuccess] = useState("");
   const [mdpError, setMdpError] = useState("");
+
+  if (!hydrated) return <AuthLoading />;
+  if (!isAuthenticated || !user) return null;
 
   const handleChangerMdp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,9 +42,6 @@ export default function ProfilPage() {
     }
   };
 
-  if (!isAuthenticated || !user) {
-    return <div className="flex justify-center py-20 text-gray-400">Chargement…</div>;
-  }
 
   const initiales = user.nom?.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2) ?? "?";
 

@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { certificationService } from "@/features/certifications/services/certification.service";
 import type { Soumission } from "@/types/models.types";
 import { VerifiedIcon, InboxEmptyIcon } from "@/components/ui/Icons";
+import { AuthLoading } from "@/components/shared/AuthGuard";
 
 function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   if (statut === "verifie") {
@@ -17,7 +18,7 @@ function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
 }
 
 export default function CertifierPage() {
-  useAuth(true);
+  const { hydrated } = useAuth(true);
   const [num, setNum] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -55,6 +56,8 @@ export default function CertifierPage() {
       setLoading(false);
     }
   };
+
+  if (!hydrated) return <AuthLoading />;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10 md:py-16">

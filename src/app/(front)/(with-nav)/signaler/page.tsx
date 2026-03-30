@@ -7,11 +7,12 @@ import { signalementService } from "@/features/signalements/services/signalement
 import type { Categorie, Canal } from "@/types/models.types";
 import { ROUTES } from "@/constants";
 import { CheckCircleIcon, FlagIcon } from "@/components/ui/Icons";
+import { AuthLoading } from "@/components/shared/AuthGuard";
 
 function SignalerContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { isAuthenticated } = useAuth(true); // protégée
+  const { isAuthenticated, hydrated } = useAuth(true);
 
   const [num, setNum] = useState(searchParams.get("num") ?? "");
   const [description, setDescription] = useState("");
@@ -25,7 +26,7 @@ function SignalerContent() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || !hydrated) return;
     const load = async () => {
       try {
         const [cats, cans] = await Promise.all([
@@ -77,6 +78,8 @@ function SignalerContent() {
       </div>
     );
   }
+
+  if (!hydrated) return <AuthLoading />;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10 md:py-16">

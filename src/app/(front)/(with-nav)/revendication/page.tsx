@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/constants";
 import { GavelIcon } from "@/components/ui/Icons";
+import { AuthLoading } from "@/components/shared/AuthGuard";
 
 export default function RevendicationPage() {
-  useAuth(true);
+  const { hydrated } = useAuth(true);
+  if (!hydrated) return <AuthLoading />;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10 md:py-16">

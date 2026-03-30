@@ -6,7 +6,6 @@ import Link from "next/link";
 import { numeroService } from "@/features/numeros/services/numero.service";
 import type { NumeroResult } from "@/types/models.types";
 import { ROUTES } from "@/constants";
-import { useAuth } from "@/hooks/useAuth";
 import {
   SearchIcon, FlagIcon, ShieldIcon, CheckCircleIcon,
   WarningIcon, ClockIcon, HelpCircleIcon, ReportIcon,
@@ -93,7 +92,6 @@ function ResultCard({ result, searchedNum }: { result: NumeroResult; searchedNum
 function VerifierContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  useAuth(true);
   const [numero, setNumero] = useState(searchParams.get("num") ?? "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<NumeroResult | null>(null);

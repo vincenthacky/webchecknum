@@ -7,6 +7,7 @@ import { certificationService } from "@/features/certifications/services/certifi
 import type { Soumission } from "@/types/models.types";
 import { ROUTES } from "@/constants";
 import { BadgeIcon } from "@/components/ui/Icons";
+import { AuthLoading } from "@/components/shared/AuthGuard";
 
 function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   const config = {
@@ -19,7 +20,7 @@ function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
 }
 
 export default function MesCertificationsPage() {
-  useAuth(true);
+  const { hydrated } = useAuth(true);
   const [soumissions, setSoumissions] = useState<Soumission[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,6 +29,8 @@ export default function MesCertificationsPage() {
       .then(setSoumissions)
       .finally(() => setLoading(false));
   }, []);
+
+  if (!hydrated) return <AuthLoading />;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10 md:py-16">
