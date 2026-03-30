@@ -197,10 +197,7 @@ export default function HomePage() {
             NumCheck fonctionne partout en Côte d&apos;Ivoire, même avec une connexion limitée. Notre base de données est mise à jour en temps réel grâce aux signalements de notre communauté. Plus les utilisateurs signalent, plus la protection est forte.
           </p>
         </div>
-        {/* video mockup */}
-        <div className="mx-auto" style={{ maxWidth: 1180, paddingBottom: 0 }}>
-          <Image src="/images/landing/s5-video.png" alt="NumCheck en action" width={1190} height={490} style={{ width: "100%", height: "auto", display: "block" }} unoptimized />
-        </div>
+       
       </section>
 
       {/* ════════════════════════════════════════════════════

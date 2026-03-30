@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/constants";
+import { PersonIcon, LogoutIcon } from "@/components/ui/Icons";
 
 type Tab = "connexion" | "inscription";
 
@@ -78,18 +79,23 @@ function ConnexionContent() {
 
         {/* Card */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-          {/* Tabs */}
-          <div className="flex border-b border-gray-100">
-            {(["connexion", "inscription"] as Tab[]).map((t) => (
+          {/* Toggle pilule */}
+          <div className="flex bg-gray-100 rounded-full p-1 mx-4 mt-5">
+            {(["inscription", "connexion"] as Tab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => { setTab(t); setError(""); }}
-                className={`flex-1 py-3.5 text-sm font-semibold transition-colors ${
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-sm font-semibold transition-all ${
                   tab === t
-                    ? "text-orange-600 border-b-2 border-orange-500"
-                    : "text-gray-400 hover:text-gray-600"
+                    ? "bg-orange-500 text-white shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
                 }`}
               >
+                {t === "inscription" ? (
+                  <PersonIcon size={16} color={tab === t ? "white" : "#6B7280"} />
+                ) : (
+                  <LogoutIcon size={16} color={tab === t ? "white" : "#6B7280"} />
+                )}
                 {t === "connexion" ? "Se connecter" : "S'inscrire"}
               </button>
             ))}
