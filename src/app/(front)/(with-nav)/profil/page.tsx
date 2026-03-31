@@ -33,7 +33,7 @@ function ProfilContent() {
         ...(user?.has_password ? { ancien } : {}),
         nouveau,
       });
-      setMdpSuccess("Code PIN modifié avec succès !");
+      setMdpSuccess("mot de passe modifié avec succès !");
       setAncien(""); setNouveau(""); setConfirmer("");
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
@@ -86,7 +86,7 @@ function ProfilContent() {
 
       {/* Changer PIN */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h2 className="text-lg font-bold text-gray-800 mb-4">Changer le code PIN</h2>
+        <h2 className="text-lg font-bold text-gray-800 mb-4">Changer le mot de passe</h2>
         <form onSubmit={handleChangerMdp} className="flex flex-col gap-4">
           {user.has_password && (
             <div>

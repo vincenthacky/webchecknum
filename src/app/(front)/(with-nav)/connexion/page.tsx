@@ -45,7 +45,7 @@ function ConnexionContent() {
       router.push(ROUTES.front.profil);
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
-      setError(msg ?? "Numéro ou code PIN incorrect.");
+      setError(msg ?? "Numéro ou mot de passe incorrect.");
     } finally {
       setLoading(false);
     }
@@ -124,7 +124,7 @@ function ConnexionContent() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 mb-1.5">Code PIN</label>
+                  <label className="block text-xs font-semibold text-gray-500 mb-1.5">mot de passe</label>
                   <input
                     type="password"
                     placeholder="Votre mot de passe"
@@ -172,7 +172,7 @@ function ConnexionContent() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 mb-1.5">Code PIN</label>
+                  <label className="block text-xs font-semibold text-gray-500 mb-1.5">mot de passe</label>
                   <input
                     type="password"
                     placeholder="Votre mot de passe"
