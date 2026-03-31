@@ -68,13 +68,18 @@ function SelectSkeleton() {
   return <div className="h-12 bg-gray-100 rounded-xl animate-pulse" />;
 }
 
+const formatNumero = (value: string) => {
+  const d = value.replace(/\D/g, "").slice(0, 10);
+  return d.match(/.{1,2}/g)?.join(" ") ?? d;
+};
+
 /* ── Page principale ─────────────────────────────────────────────────────────── */
 function SignalerContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { isAuthenticated, hydrated } = useAuth(true);
 
-  const [num, setNum] = useState(searchParams.get("num") ?? "");
+  const [num, setNum] = useState(() => formatNumero(searchParams.get("num") ?? ""));
   const [description, setDescription] = useState("");
   const [selectedCategorie, setSelectedCategorie] = useState<string>("");
   const [selectedCanal, setSelectedCanal] = useState<string>("");
@@ -161,7 +166,7 @@ function SignalerContent() {
               inputMode="numeric"
               placeholder="Ex : 07 12 34 56"
               value={num}
-              onChange={(e) => setNum(e.target.value)}
+              onChange={(e) => setNum(formatNumero(e.target.value))}
               required
               className="w-full text-base px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
             />

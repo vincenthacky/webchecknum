@@ -90,10 +90,15 @@ function ResultCard({ result, searchedNum }: { result: NumeroResult; searchedNum
   );
 }
 
+const formatNumero = (value: string) => {
+  const d = value.replace(/\D/g, "").slice(0, 10);
+  return d.match(/.{1,2}/g)?.join(" ") ?? d;
+};
+
 function VerifierContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [numero, setNumero] = useState(searchParams.get("num") ?? "");
+  const [numero, setNumero] = useState(() => formatNumero(searchParams.get("num") ?? ""));
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<NumeroResult | null>(null);
   const [error, setError] = useState("");
@@ -140,7 +145,7 @@ function VerifierContent() {
           inputMode="numeric"
           placeholder="Ex : 07 12 34 56 ou +225 07 12 34 56"
           value={numero}
-          onChange={(e) => setNumero(e.target.value)}
+          onChange={(e) => setNumero(formatNumero(e.target.value))}
           onKeyDown={(e) => e.key === "Enter" && handleSearch(numero)}
           className="flex-1 text-base px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent bg-white shadow-sm"
         />

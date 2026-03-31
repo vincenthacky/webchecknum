@@ -18,6 +18,11 @@ function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">⏳ En attente</span>;
 }
 
+const formatNumero = (value: string) => {
+  const d = value.replace(/\D/g, "").slice(0, 10);
+  return d.match(/.{1,2}/g)?.join(" ") ?? d;
+};
+
 function CertifierContent() {
   const { hydrated } = useAuth(true);
   const [num, setNum] = useState("");
@@ -90,7 +95,7 @@ function CertifierContent() {
             inputMode="numeric"
             placeholder="Numéro à certifier"
             value={num}
-            onChange={(e) => setNum(e.target.value)}
+            onChange={(e) => setNum(formatNumero(e.target.value))}
             required
             className="flex-1 text-base px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
           />

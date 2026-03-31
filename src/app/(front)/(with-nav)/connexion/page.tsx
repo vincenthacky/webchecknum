@@ -11,6 +11,11 @@ import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 type Tab = "connexion" | "inscription";
 
+const formatNumero = (value: string) => {
+  const d = value.replace(/\D/g, "").slice(0, 10);
+  return d.match(/.{1,2}/g)?.join(" ") ?? d;
+};
+
 function ConnexionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -113,7 +118,7 @@ function ConnexionContent() {
                     inputMode="numeric"
                     placeholder="07 12 34 56"
                     value={loginNum}
-                    onChange={(e) => setLoginNum(e.target.value)}
+                    onChange={(e) => setLoginNum(formatNumero(e.target.value))}
                     required
                     className="w-full text-base px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
                   />
@@ -122,9 +127,7 @@ function ConnexionContent() {
                   <label className="block text-xs font-semibold text-gray-500 mb-1.5">Code PIN</label>
                   <input
                     type="password"
-                    inputMode="numeric"
-                    placeholder="••••••"
-                    maxLength={6}
+                    placeholder="Votre mot de passe"
                     value={loginPin}
                     onChange={(e) => setLoginPin(e.target.value)}
                     required
@@ -163,7 +166,7 @@ function ConnexionContent() {
                     inputMode="numeric"
                     placeholder="07 12 34 56"
                     value={regNum}
-                    onChange={(e) => setRegNum(e.target.value)}
+                    onChange={(e) => setRegNum(formatNumero(e.target.value))}
                     required
                     className="w-full text-base px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
                   />
@@ -172,9 +175,7 @@ function ConnexionContent() {
                   <label className="block text-xs font-semibold text-gray-500 mb-1.5">Code PIN</label>
                   <input
                     type="password"
-                    inputMode="numeric"
-                    placeholder="••••••"
-                    maxLength={6}
+                    placeholder="Votre mot de passe"
                     value={regPin}
                     onChange={(e) => setRegPin(e.target.value)}
                     required
@@ -185,9 +186,7 @@ function ConnexionContent() {
                   <label className="block text-xs font-semibold text-gray-500 mb-1.5">Confirmer le PIN</label>
                   <input
                     type="password"
-                    inputMode="numeric"
-                    placeholder="••••••"
-                    maxLength={6}
+                    placeholder="Confirmer le mot de passe"
                     value={regPinConfirm}
                     onChange={(e) => setRegPinConfirm(e.target.value)}
                     required
