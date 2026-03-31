@@ -6,6 +6,7 @@ import { certificationService } from "@/features/certifications/services/certifi
 import type { Soumission } from "@/types/models.types";
 import { VerifiedIcon, InboxEmptyIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   if (statut === "verifie") {
@@ -17,7 +18,7 @@ function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">⏳ En attente</span>;
 }
 
-export default function CertifierPage() {
+function CertifierContent() {
   const { hydrated } = useAuth(true);
   const [num, setNum] = useState("");
   const [loading, setLoading] = useState(false);
@@ -136,4 +137,8 @@ export default function CertifierPage() {
       </div>
     </div>
   );
+}
+
+export default function CertifierPage() {
+  return <AndroidGuard><CertifierContent /></AndroidGuard>;
 }

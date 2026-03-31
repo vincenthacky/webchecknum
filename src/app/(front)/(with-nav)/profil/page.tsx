@@ -7,8 +7,9 @@ import { profilService } from "@/features/profil/services/profil.service";
 import { ROUTES } from "@/constants";
 import { FlagIcon, VerifiedIcon, LogoutIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
-export default function ProfilPage() {
+function ProfilContent() {
   const { user, isAuthenticated, hydrated, logout } = useAuth(true);
   const [ancien, setAncien] = useState("");
   const [nouveau, setNouveau] = useState("");
@@ -149,4 +150,8 @@ export default function ProfilPage() {
       </button>
     </div>
   );
+}
+
+export default function ProfilPage() {
+  return <AndroidGuard><ProfilContent /></AndroidGuard>;
 }

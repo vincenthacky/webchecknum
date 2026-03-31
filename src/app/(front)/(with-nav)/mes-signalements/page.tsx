@@ -8,6 +8,7 @@ import type { MonSignalement } from "@/types/models.types";
 import { ROUTES } from "@/constants";
 import { InboxEmptyIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 function StatutBadge({ statut }: { statut: MonSignalement["statut"] }) {
   const config = {
@@ -21,7 +22,7 @@ function StatutBadge({ statut }: { statut: MonSignalement["statut"] }) {
   );
 }
 
-export default function MesSignalementsPage() {
+function MesSignalementsContent() {
   const { hydrated } = useAuth(true);
   const [signalements, setSignalements] = useState<MonSignalement[]>([]);
   const [loading, setLoading] = useState(true);
@@ -99,4 +100,8 @@ export default function MesSignalementsPage() {
       )}
     </div>
   );
+}
+
+export default function MesSignalementsPage() {
+  return <AndroidGuard><MesSignalementsContent /></AndroidGuard>;
 }

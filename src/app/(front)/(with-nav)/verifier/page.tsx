@@ -10,6 +10,7 @@ import {
   SearchIcon, FlagIcon, ShieldIcon, CheckCircleIcon,
   WarningIcon, ClockIcon, HelpCircleIcon, ReportIcon,
 } from "@/components/ui/Icons";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 function EtatBadge({ etat }: { etat: NumeroResult["etat"] }) {
   const config = {
@@ -200,8 +201,10 @@ function VerifierContent() {
 
 export default function VerifierPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center py-20 text-gray-400">Chargement…</div>}>
-      <VerifierContent />
-    </Suspense>
+    <AndroidGuard>
+      <Suspense fallback={<div className="flex justify-center py-20 text-gray-400">Chargement…</div>}>
+        <VerifierContent />
+      </Suspense>
+    </AndroidGuard>
   );
 }

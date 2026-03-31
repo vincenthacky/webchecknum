@@ -8,6 +8,7 @@ import type { Soumission } from "@/types/models.types";
 import { ROUTES } from "@/constants";
 import { BadgeIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   const config = {
@@ -19,7 +20,7 @@ function StatutBadge({ statut }: { statut: Soumission["statut_numero"] }) {
   return <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${c.cls}`}>{c.label}</span>;
 }
 
-export default function MesCertificationsPage() {
+function MesCertificationsContent() {
   const { hydrated } = useAuth(true);
   const [soumissions, setSoumissions] = useState<Soumission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -88,4 +89,8 @@ export default function MesCertificationsPage() {
       )}
     </div>
   );
+}
+
+export default function MesCertificationsPage() {
+  return <AndroidGuard><MesCertificationsContent /></AndroidGuard>;
 }

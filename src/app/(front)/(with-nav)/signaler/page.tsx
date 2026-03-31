@@ -8,6 +8,7 @@ import type { Categorie, Canal } from "@/types/models.types";
 import { ROUTES } from "@/constants";
 import { CheckCircleIcon, FlagIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 /* ── Select stylé avec chevron custom ───────────────────────────────────────── */
 function StyledSelect({
@@ -243,8 +244,10 @@ function SignalerContent() {
 
 export default function SignalerPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center py-20 text-gray-400">Chargement…</div>}>
-      <SignalerContent />
-    </Suspense>
+    <AndroidGuard>
+      <Suspense fallback={<div className="flex justify-center py-20 text-gray-400">Chargement…</div>}>
+        <SignalerContent />
+      </Suspense>
+    </AndroidGuard>
   );
 }

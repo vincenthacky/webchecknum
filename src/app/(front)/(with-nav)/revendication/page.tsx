@@ -5,8 +5,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/constants";
 import { GavelIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
-export default function RevendicationPage() {
+function RevendicationContent() {
   const { hydrated } = useAuth(true);
   if (!hydrated) return <AuthLoading />;
 
@@ -77,4 +78,8 @@ export default function RevendicationPage() {
       </div>
     </div>
   );
+}
+
+export default function RevendicationPage() {
+  return <AndroidGuard><RevendicationContent /></AndroidGuard>;
 }

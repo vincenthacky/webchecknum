@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/constants";
 import { PersonIcon, LogoutIcon } from "@/components/ui/Icons";
+import { AndroidGuard } from "@/components/shared/AndroidGuard";
 
 type Tab = "connexion" | "inscription";
 
@@ -218,8 +219,10 @@ function ConnexionContent() {
 
 export default function ConnexionPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center py-20 text-gray-400">Chargement…</div>}>
-      <ConnexionContent />
-    </Suspense>
+    <AndroidGuard>
+      <Suspense fallback={<div className="flex justify-center py-20 text-gray-400">Chargement…</div>}>
+        <ConnexionContent />
+      </Suspense>
+    </AndroidGuard>
   );
 }
