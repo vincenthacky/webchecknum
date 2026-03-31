@@ -7,31 +7,38 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Mot de passe", type: "password" },
+        num: { label: "Numéro", type: "tel" },
+        motdepasse: { label: "Mot de passe", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.num || !credentials?.motdepasse) return null;
 
         try {
           const res = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
+              num: credentials.num,
+              motdepasse: credentials.motdepasse,
             }),
           });
 
           if (!res.ok) return null;
 
-          const { data } = await res.json();
+          const json = await res.json();
+          if (!json.success) return null;
+
+          const { token, user } = json.data;
+
+          // Seuls les admins ont accès au backoffice
+          if (user.role !== "admin") return null;
+
           return {
-            id: data.user.id,
-            email: data.user.email,
-            name: `${data.user.prenom} ${data.user.nom}`,
-            role: data.user.role,
-            accessToken: data.accessToken,
+            id: String(user.id),
+            email: user.num, // num utilisé comme identifiant email côté NextAuth
+            name: user.nom,
+            role: user.role,
+            accessToken: token,
           };
         } catch {
           return null;
@@ -61,7 +68,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 1 day
+    maxAge: 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

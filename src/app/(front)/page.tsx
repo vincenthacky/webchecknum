@@ -17,14 +17,6 @@ const FOOTER_COLS = [
     links: ["Application mobile", "Vérifier un numéro", "Signaler un arnaqueur", "Certifications"],
   },
   {
-    heading: "Entreprise",
-    links: ["À propos", "Contact", "Partenaires", "Presse"],
-  },
-  {
-    heading: "Ressources",
-    links: ["Guide d'utilisation", "Blog", "FAQ", "Centre de signalement"],
-  },
-  {
     heading: "Légal",
     links: ["Conditions d'utilisation", "Confidentialité", "Cookies", "Mentions légales"],
   },
@@ -433,7 +425,7 @@ export default function HomePage() {
           </div>
 
           {/* colonnes liens */}
-          <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          <div className="flex-1 grid grid-cols-2 gap-6 md:gap-8">
             {FOOTER_COLS.map((col) => (
               <div key={col.heading}>
                 <p

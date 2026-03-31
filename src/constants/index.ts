@@ -22,10 +22,13 @@ export const ROUTES = {
   back: {
     dashboard: "/dashboard",
     signalements: "/signalements",
-    signalement: (id: string) => `/signalements/${id}`,
+    signalement: (id: string | number) => `/signalements/${id}`,
     certifications: "/certifications",
-    certification: (id: string) => `/certifications/${id}`,
+    certification: (id: string | number) => `/certifications/${id}`,
     utilisateurs: "/utilisateurs",
+    numeros: "/numeros",
+    categories: "/categories",
+    canaux: "/canaux",
   },
   auth: {
     login: "/auth/login",

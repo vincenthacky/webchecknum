@@ -3,47 +3,59 @@ export const ENDPOINTS = {
   auth: {
     login: "/auth/login",
     register: "/auth/register",
-    social: "/auth/social",
   },
-  // Recherche numéro
+
+  // Recherche numéro (public)
   numeros: {
     rechercher: (num: string) => `/numeros/rechercher/${num}`,
   },
-  // Signalements
+
+  // Signalements (front users)
   arnaques: {
     create: "/arnaques",
     mes: "/arnaques/mes-signalements",
   },
-  // Catégories & canaux
+
+  // Catégories & canaux (public)
   categories: "/categories",
   canaux: "/canaux",
-  // Certifications / soumissions
+
+  // Certifications / soumissions (front users)
   soumissions: {
     create: "/soumissions",
     mes: "/soumissions/mes-soumissions",
   },
+
   // Profil
   profil: {
     motDePasse: "/users/moi/motdepasse",
-    num: "/users/moi/num",
   },
-  // Back office admin (conservés)
+
+  // Administration (token admin requis)
   admin: {
-    signalements: {
-      base: "/signalements",
-      detail: (id: string) => `/signalements/${id}`,
-      valider: (id: string) => `/signalements/${id}/valider`,
-      rejeter: (id: string) => `/signalements/${id}/rejeter`,
+    arnaques: {
+      base: "/arnaques",
+      detail: (id: string | number) => `/arnaques/${id}`,
+      statut: (id: string | number) => `/arnaques/${id}/statut`,
     },
-    certifications: {
-      base: "/certifications",
-      detail: (id: string) => `/certifications/${id}`,
-      approuver: (id: string) => `/certifications/${id}/approuver`,
-      refuser: (id: string) => `/certifications/${id}/refuser`,
+    soumissions: {
+      base: "/soumissions",
     },
-    utilisateurs: {
-      base: "/utilisateurs",
-      detail: (id: string) => `/utilisateurs/${id}`,
+    numeros: {
+      base: "/numeros",
+      detail: (id: string | number) => `/numeros/${id}`,
+    },
+    users: {
+      base: "/users",
+      detail: (id: string | number) => `/users/${id}`,
+    },
+    categories: {
+      base: "/categories",
+      detail: (id: string | number) => `/categories/${id}`,
+    },
+    canaux: {
+      base: "/canaux",
+      detail: (id: string | number) => `/canaux/${id}`,
     },
   },
 } as const;

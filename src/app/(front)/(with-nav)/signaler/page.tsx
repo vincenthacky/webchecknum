@@ -9,6 +9,65 @@ import { ROUTES } from "@/constants";
 import { CheckCircleIcon, FlagIcon } from "@/components/ui/Icons";
 import { AuthLoading } from "@/components/shared/AuthGuard";
 
+/* ── Select stylé avec chevron custom ───────────────────────────────────────── */
+function StyledSelect({
+  value,
+  onChange,
+  placeholder,
+  options,
+  disabled,
+  accentColor = "orange",
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  options: { id: number; libelle: string }[];
+  disabled?: boolean;
+  accentColor?: "orange" | "gray";
+}) {
+  const ring =
+    accentColor === "orange"
+      ? "focus:ring-orange-400"
+      : "focus:ring-gray-400";
+  const selected = value !== "";
+
+  return (
+    <div className="relative">
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
+        size={1}
+        className={`w-full appearance-none text-base px-4 py-3 pr-10 rounded-xl border bg-white
+          focus:outline-none focus:ring-2 focus:border-transparent transition-shadow
+          disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer
+          ${ring}
+          ${selected ? "text-gray-900 border-gray-300" : "text-gray-400 border-gray-200"}
+        `}
+      >
+        <option value="" disabled>{placeholder}</option>
+        {options.map((opt) => (
+          <option key={opt.id} value={String(opt.id)}>
+            {opt.libelle}
+          </option>
+        ))}
+      </select>
+      {/* Chevron */}
+      <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    </div>
+  );
+}
+
+/* ── Skeleton select ─────────────────────────────────────────────────────────── */
+function SelectSkeleton() {
+  return <div className="h-12 bg-gray-100 rounded-xl animate-pulse" />;
+}
+
+/* ── Page principale ─────────────────────────────────────────────────────────── */
 function SignalerContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -16,8 +75,8 @@ function SignalerContent() {
 
   const [num, setNum] = useState(searchParams.get("num") ?? "");
   const [description, setDescription] = useState("");
-  const [selectedCategorie, setSelectedCategorie] = useState<number | null>(null);
-  const [selectedCanal, setSelectedCanal] = useState<number | null>(null);
+  const [selectedCategorie, setSelectedCategorie] = useState<string>("");
+  const [selectedCanal, setSelectedCanal] = useState<string>("");
   const [categories, setCategories] = useState<Categorie[]>([]);
   const [canaux, setCanaux] = useState<Canal[]>([]);
   const [loading, setLoading] = useState(false);
@@ -56,8 +115,8 @@ function SignalerContent() {
       await signalementService.publier({
         num: num.replace(/\s/g, ""),
         description: description.trim(),
-        id_canal: selectedCanal,
-        id_categorie: selectedCategorie,
+        id_canal: Number(selectedCanal),
+        id_categorie: Number(selectedCategorie),
       });
       setSuccess(true);
       setTimeout(() => router.push(ROUTES.front.mesSignalements), 1800);
@@ -93,7 +152,9 @@ function SignalerContent() {
 
           {/* Numéro */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Numéro à signaler *</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Numéro à signaler *
+            </label>
             <input
               type="tel"
               inputMode="numeric"
@@ -105,57 +166,39 @@ function SignalerContent() {
             />
           </div>
 
-          {/* Catégories */}
+          {/* Catégorie — select */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">Catégorie *</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Catégorie de l&apos;arnaque *
+            </label>
             {loadingConfig ? (
-              <div className="flex flex-wrap gap-2">
-                {[1,2,3,4].map(i => <div key={i} className="h-9 w-28 bg-gray-100 rounded-full animate-pulse" />)}
-              </div>
+              <SelectSkeleton />
             ) : (
-              <div className="flex flex-wrap gap-2">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => setSelectedCategorie(cat.id === selectedCategorie ? null : cat.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                      selectedCategorie === cat.id
-                        ? "bg-orange-500 text-white border-orange-500 shadow-sm"
-                        : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-600"
-                    }`}
-                  >
-                    {cat.libelle}
-                  </button>
-                ))}
-              </div>
+              <StyledSelect
+                value={selectedCategorie}
+                onChange={setSelectedCategorie}
+                placeholder="— Choisir une catégorie —"
+                options={categories}
+                accentColor="orange"
+              />
             )}
           </div>
 
-          {/* Canaux */}
+          {/* Canal — select */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">Canal de l&apos;arnaque *</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Canal de l&apos;arnaque *
+            </label>
             {loadingConfig ? (
-              <div className="flex flex-wrap gap-2">
-                {[1,2,3].map(i => <div key={i} className="h-9 w-24 bg-gray-100 rounded-full animate-pulse" />)}
-              </div>
+              <SelectSkeleton />
             ) : (
-              <div className="flex flex-wrap gap-2">
-                {canaux.map((canal) => (
-                  <button
-                    key={canal.id}
-                    type="button"
-                    onClick={() => setSelectedCanal(canal.id === selectedCanal ? null : canal.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                      selectedCanal === canal.id
-                        ? "bg-gray-800 text-white border-gray-800 shadow-sm"
-                        : "bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-800"
-                    }`}
-                  >
-                    {canal.libelle}
-                  </button>
-                ))}
-              </div>
+              <StyledSelect
+                value={selectedCanal}
+                onChange={setSelectedCanal}
+                placeholder="— Choisir un canal —"
+                options={canaux}
+                accentColor="gray"
+              />
             )}
           </div>
 
@@ -163,7 +206,9 @@ function SignalerContent() {
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Description *
-              <span className="text-xs font-normal text-gray-400 ml-2">({description.length}/20 min)</span>
+              <span className="text-xs font-normal text-gray-400 ml-2">
+                ({description.length}/20 min)
+              </span>
             </label>
             <textarea
               placeholder="Décrivez l'arnaque : comment ça s'est passé, ce qui vous a alerté…"
@@ -175,7 +220,9 @@ function SignalerContent() {
             />
           </div>
 
-          {error && <p className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
+          {error && (
+            <p className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+          )}
 
           <button
             type="submit"
@@ -183,10 +230,10 @@ function SignalerContent() {
             className="w-full min-h-[52px] py-3 rounded-xl bg-orange-500 text-white font-semibold text-base hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {loading ? "Envoi en cours…" : (
-            <span className="flex items-center justify-center gap-2">
-              <FlagIcon size={16} color="#fff" /> Envoyer le signalement
-            </span>
-          )}
+              <span className="flex items-center justify-center gap-2">
+                <FlagIcon size={16} color="#fff" /> Envoyer le signalement
+              </span>
+            )}
           </button>
         </form>
       </div>

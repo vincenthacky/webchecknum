@@ -1,16 +1,4 @@
-// ── Types alignés sur l'API Flutter/Backend ─────────────────────────────────
-
-// Admin user (back office)
-export type UserRole = "admin" | "moderateur";
-export interface User {
-  id: string;
-  nom: string;
-  prenom: string;
-  email: string;
-  role: UserRole;
-  actif: boolean;
-  createdAt: string;
-}
+// ── Types alignés sur l'API Backend ──────────────────────────────────────────
 
 // Front office user (app mobile)
 export interface FrontUser {
@@ -45,7 +33,7 @@ export interface NumeroResult {
   arnaques: ArnaqueItem[];
 }
 
-// Signalement
+// Signalement (front user)
 export type SignalementStatut = "valide" | "rejete" | "en_attente";
 
 export interface MonSignalement {
@@ -67,7 +55,7 @@ export interface Canal {
   libelle: string;
 }
 
-// Certification / Soumission
+// Certification / Soumission (front user)
 export type SoumissionStatut = "verifie" | "en_attente" | "rejete";
 
 export interface Soumission {
@@ -79,7 +67,19 @@ export interface Soumission {
   date_de_soumission: string;
 }
 
-// Legacy — garde la compatibilité back office
+// ── Legacy types (référencés par les feature services) ───────────────────────
+
+export type UserRole = "admin" | "moderateur";
+export interface User {
+  id: string;
+  nom: string;
+  prenom: string;
+  email: string;
+  role: UserRole;
+  actif: boolean;
+  createdAt: string;
+}
+
 export type NumeroStatut = "safe" | "suspect" | "danger" | "certifie" | "inconnu";
 export interface Numero {
   id: string;
@@ -116,4 +116,54 @@ export interface Certification {
   dateExpiration?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+// ── Types Admin ───────────────────────────────────────────────────────────────
+
+export interface AdminArnaque {
+  id: number;
+  description: string;
+  statut: "en_attente" | "valide" | "rejete";
+  num: string;
+  categorie: string;
+  canal: string;
+  plaignant: string;
+}
+
+export interface AdminSoumission {
+  id: number;
+  num: string;
+  fiabilite: "certifie" | "arnaqueur";
+  statut_numero: "en_attente" | "verifie";
+  utilisateur: string;
+  date_de_soumission: string;
+  id_num?: number; // enrichi côté client
+}
+
+export interface AdminNumero {
+  id: number;
+  num: string;
+  fiabilite: "arnaqueur" | "certifie";
+  statut: "en_attente" | "verifie";
+  total_signalements: number;
+}
+
+export interface AdminUtilisateur {
+  id: number;
+  nom: string;
+  num: string;
+  statut: number; // 1 = actif, 0 = inactif
+  role: "admin" | "user";
+}
+
+export interface AdminCategorie {
+  id: number;
+  libelle: string;
+  statut: number;
+}
+
+export interface AdminCanal {
+  id: number;
+  libelle: string;
+  statut: number;
 }

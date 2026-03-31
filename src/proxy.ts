@@ -14,6 +14,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  // Seuls les admins peuvent accéder au backoffice
+  if (token.role !== "admin") {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
   return NextResponse.next();
 }
 
@@ -23,5 +28,8 @@ export const config = {
     "/signalements/:path*",
     "/certifications/:path*",
     "/utilisateurs/:path*",
+    "/numeros/:path*",
+    "/categories/:path*",
+    "/canaux/:path*",
   ],
 };
