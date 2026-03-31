@@ -121,7 +121,7 @@ export function Sidebar({ onClose }: SidebarProps) {
           <span className="text-sm text-gray-300 font-medium truncate">{adminName}</span>
         </div>
         <button
-          onClick={() => signOut({ callbackUrl: ROUTES.auth.login })}
+          onClick={() => signOut({ callbackUrl: `${window.location.origin}${ROUTES.auth.login}` })}
           className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800 hover:text-white transition-all"
         >
           <LogOut className="h-4 w-4 shrink-0" />
